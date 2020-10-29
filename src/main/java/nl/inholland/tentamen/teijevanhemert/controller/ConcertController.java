@@ -1,17 +1,15 @@
 package nl.inholland.tentamen.teijevanhemert.controller;
 
 import lombok.extern.java.Log;
-import nl.inholland.tentamen.teijevanhemert.GenericErrorResponseDTO;
+import nl.inholland.tentamen.teijevanhemert.dto.ConcertDTO;
+import nl.inholland.tentamen.teijevanhemert.dto.GenericErrorResponseDTO;
 import nl.inholland.tentamen.teijevanhemert.model.Concert;
 import nl.inholland.tentamen.teijevanhemert.service.ConcertService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,6 +50,27 @@ public class ConcertController
             return ResponseEntity
                     .status(200)
                     .body(concerts);
+        }
+        catch (Exception exception)
+        {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(new GenericErrorResponseDTO(400, exception.getMessage()));
+        }
+    }
+
+    @RequestMapping(
+            value = "",
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity CreateConcert(@RequestBody ConcertDTO concertDTO)
+    {
+        try
+        {
+            log.info("--- Exam Question 6a completed ---");
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(concertService.CreateConcert(concertDTO));
         }
         catch (Exception exception)
         {

@@ -1,4 +1,4 @@
-package nl.inholland.tentamen.teijevanhemert;
+package nl.inholland.tentamen.teijevanhemert.dto;
 
 import lombok.Data;
 
